@@ -14,7 +14,7 @@
 			houseDescription = document.querySelector('.house-info'),
 			vid = lightBox.querySelector('video'),
 			close = document.querySelector('.close'),
-			progressFill = document.querySelector('#prograssFill'),
+			progressFill = document.querySelector('#progressFill'),
 			playBtn = document.querySelector('#playBtn'),
 			volumeBtn = document.querySelector('#volumeBtn'),
 			volumeSlider = document.querySelector("#volumeSlider");
@@ -109,9 +109,13 @@
 	}
 
 	// video controls
+	function autoClose() {
+		lightBox.classList.remove('show-lightbox');
+	}
+
 	function closeVideo(event) {			
-				stopVideo();
-				lightBox.classList.remove('show-lightbox');
+		stopVideo();
+		lightBox.classList.remove('show-lightbox');
 	}
 
 	function togglePlay(event) {
@@ -135,6 +139,11 @@
 		volumeSlider.style.background = `linear-gradient(90deg, rgba(162,206,245,1) ${x}%, rgba(255,255,255,1) ${x}%)`;
 	}
 
+	function prograssBar() {
+		let y = vid.currentTime / vid.duration;
+		progressFill.style.width = `${y*100}%`;
+	}
+
 
 	// start of event handler
 	// traditional eventlistener forEach takes up system memory:
@@ -146,6 +155,8 @@
 	playBtn.addEventListener('click', togglePlay);
 	volumeBtn.addEventListener('click', showVolumeSlider);
 	volumeSlider.addEventListener('mousemove', changeVolume);
+	vid.addEventListener('ended', autoClose);
+	vid.addEventListener('timeupdate', prograssBar);
 
 
 })();
