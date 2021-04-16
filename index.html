@@ -39,8 +39,21 @@
     <p class="house-info"></p><!-- replace this with house details (github gist) -->
 
     <section class="lightbox" id="lightbox">
-        <a href="#" class="close">X</a>
-        <video src="video/House-Stark.mp4" controls></video>
+        <div id="videoCon">
+            <a href="#" class="close">X</a>
+            <video src="video/House-Stark.mp4"></video>
+        </div>
+            
+        <div id="controls">
+            <div id="progressBar">
+                <div id="progressFill"></div>
+            </div>
+            <div id="controlIcons">
+                <button id="playBtn"></button>
+                <button id="volumeBtn"></button>
+                <input type="range" id="volumeSlider" max="1" value="0.5" step="0.01">
+            </div>
+        </div>
     </section>
 
 </main>  <!--end mainContainer-->
