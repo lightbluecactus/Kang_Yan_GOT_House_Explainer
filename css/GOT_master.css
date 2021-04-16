@@ -113,12 +113,18 @@ main { /*give whitespace on top & bottom of page*/
 	left: 0;
 	top: 0;
 	width: 100%;
-	height: 100%;
 	align-items: center;
+	padding: 60px 0 550px 0;
 	background-color: rgba(0, 0, 0, 0.7);
 }
 
-.show-lightbox { display: block; }
+.show-lightbox 
+{ 
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	margin: 0 auto; 
+}
 
 /*open lightbox*/
 /*.lightbox:target
@@ -129,13 +135,17 @@ main { /*give whitespace on top & bottom of page*/
 }*/
 
 /*close button*/
-.lightbox .close
+.close
 {
-	float: right;
-	padding-right: 10px;
-	padding-top: 10px;
 	font-size: 30px;
 	color: #fff;
+	font-family: Helvetica, Arial, sans-serif;
+	position: absolute;
+	right: 2%;
+}
+.lightbox a
+{
+	text-decoration: none;
 }
 
 .house-info
@@ -149,8 +159,120 @@ main { /*give whitespace on top & bottom of page*/
 	padding-bottom: 80px;
 }
 
-video {
+video 
+{
 	width: 65%;
-	margin-top: 10%;
-	border: thin solid #949393;
+	/*border: 1px solid #949393;*/
+}
+
+#controls
+{
+	height: 40px;
+	width: 65%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	background: rgba(0,0,0,.7);
+}
+
+#progressBar
+{
+	height: 3px;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+#progressFill
+{
+	height: 3px;
+	/*width: 50px;*/
+	background-color: #A2CEF5;
+
+}
+
+#controlIcons
+{
+	display: flex;
+	margin-top: 7px;
+}
+
+#playBtn
+{
+	background: url(../images/pauseBtn.svg) no-repeat;
+	height: 25px;
+	border: 0;
+	outline: 0;
+	display: block;
+	margin-left: 5%;
+	cursor: pointer;
+}
+
+#playBtn:hover
+{
+	-moz-transform:scale(1.2, 1.2);
+	-webkit-transform:scale(1.2, 1.2);
+	transform:scale(1.2, 1.2);
+}
+
+#playBtn.play
+{
+	background: url(../images/playBtn.svg) no-repeat;
+}
+
+#volumeBtn
+{
+	background: url(../images/volumeBtn.svg) no-repeat;
+	height: 25px;
+	border: 0;
+	outline: 0;
+	display: block;
+	margin-left: 5%;
+	cursor: pointer;
+}
+
+#volumeBtn:hover
+{
+	-moz-transform:scale(1.2, 1.2);
+	-webkit-transform:scale(1.2, 1.2);
+	transform:scale(1.2, 1.2);
+}
+
+#volumeSlider
+{
+	display: none;
+}
+
+#volumeSlider.volumeShow
+{
+	display: block;
+	width: 80px;
+	height: 4px;
+	margin-left: 3%;
+	margin-top: 5px;
+   -webkit-appearance: none;
+  	background: rgb(162,206,245);
+	background: linear-gradient(90deg, rgba(162,206,245,1) 50%, rgba(255,255,255,1) 50%);
+   border-radius: 0;
+}
+
+#volumeSlider.volumeShow::-webkit-slider-thumb
+{
+   -webkit-appearance: none;
+   appearance: none;
+   width: 8px;
+   height: 8px;
+   background: rgb(255,255,255);
+   border-radius: 50%;
+   box-shadow: none;
+   cursor: pointer;
+}
+
+#volumeSlider.volumeShow::-moz-range-thumb
+{
+   width: 8px;
+   height: 8px;
+   background: rgb(255,255,255);
+   border-radius: 50%;
+   cursor: pointer;
 }

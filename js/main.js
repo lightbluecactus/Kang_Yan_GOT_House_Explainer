@@ -13,7 +13,11 @@
 			houseName = document.querySelector('h1'),
 			houseDescription = document.querySelector('.house-info'),
 			vid = lightBox.querySelector('video'),
-			close = document.querySelector('.close');
+			close = document.querySelector('.close'),
+			progressFill = document.querySelector('#progressFill'),
+			playBtn = document.querySelector('#playBtn'),
+			volumeBtn = document.querySelector('#volumeBtn'),
+			volumeSlider = document.querySelector("#volumeSlider");
 
 	const houseInfo = [
 		['Stark',`House Stark of Winterfell is a Great House of Westeros, ruling over the vast region known as the North from their seat in Winterfell. It is one of the oldest lines of Westerosi nobility by far, claiming a line of descent stretching back over eight thousand years. Before the Targaryen conquest, as well as during the War of the Five Kings and Daenerys Targaryen's invasion of Westeros, the leaders of House Stark ruled over the region as the Kings in the North.`], // houseInfo[0][0] -> gets the first index of array
@@ -44,6 +48,10 @@
 	function stopVideo() {
 		vid.pause(); 
 		vid.currentTime = 0;
+	}
+
+	function pauseVideo() {
+		vid.pause;
 	}
 
 	function setHouseData(name, desc) {
@@ -100,11 +108,40 @@
 		}
 	}
 
-	function closeVideo(event) {
-			
-				stopVideo();
+	// video controls
+	function autoClose() {
+		lightBox.classList.remove('show-lightbox');
+	}
 
-				lightBox.classList.remove('show-lightbox');
+	function closeVideo(event) {			
+		stopVideo();
+		lightBox.classList.remove('show-lightbox');
+	}
+
+	function togglePlay(event) {
+		playBtn.classList.toggle('play');
+		if(event.target.className.includes('play')) {
+			vid.pause();
+		}
+		else
+		{
+			vid.play();
+		}
+	}
+
+	function showVolumeSlider(event) {
+		volumeSlider.classList.toggle('volumeShow');	
+	}
+
+	function changeVolume(event) {
+		vid.volume = event.target.value;
+		let x = 100*vid.volume;
+		volumeSlider.style.background = `linear-gradient(90deg, rgba(162,206,245,1) ${x}%, rgba(255,255,255,1) ${x}%)`;
+	}
+
+	function prograssBar() {
+		let y = vid.currentTime / vid.duration;
+		progressFill.style.width = `${y*100}%`;
 	}
 
 
@@ -115,6 +152,11 @@
 	sigils.addEventListener('click', changeContent);
 	sigils.addEventListener('click', popLightBox);
 	close.addEventListener('click', closeVideo);
+	playBtn.addEventListener('click', togglePlay);
+	volumeBtn.addEventListener('click', showVolumeSlider);
+	volumeSlider.addEventListener('mousemove', changeVolume);
+	vid.addEventListener('ended', autoClose);
+	vid.addEventListener('timeupdate', prograssBar);
 
 
 })();
