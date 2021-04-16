@@ -4,7 +4,7 @@
 
 	// make slider go first then video showing
 	// make custom video controls
-	// make video close as soon as it ends
+	// make video close as soon as it ends 
 	// do not upload video folder
 
 	const sigils = document.querySelector('#navList'), // traditionally select .sigilContainer but it takes several eventlisteners
@@ -12,7 +12,8 @@
 			lightBox = document.querySelector(".lightbox"),
 			houseName = document.querySelector('h1'),
 			houseDescription = document.querySelector('.house-info'),
-			vid = lightBox.querySelector('video');
+			vid = lightBox.querySelector('video'),
+			close = document.querySelector('.close');
 
 	const houseInfo = [
 		['Stark',`House Stark of Winterfell is a Great House of Westeros, ruling over the vast region known as the North from their seat in Winterfell. It is one of the oldest lines of Westerosi nobility by far, claiming a line of descent stretching back over eight thousand years. Before the Targaryen conquest, as well as during the War of the Five Kings and Daenerys Targaryen's invasion of Westeros, the leaders of House Stark ruled over the region as the Kings in the North.`], // houseInfo[0][0] -> gets the first index of array
@@ -41,7 +42,7 @@
 	}
 
 	function stopVideo() {
-		vid.pause();
+		vid.pause(); 
 		vid.currentTime = 0;
 	}
 
@@ -51,7 +52,7 @@
 	}
 
 	function setVideoSource(house) {
-		// set the video source, loda it and play it
+		// set the video source, load it and play it
 		let targetSource = `video/House-${house.charAt(0).toUpperCase() + house.slice(1)}.mp4`; // stark -> Stark
 
 		vid.src = targetSource;
@@ -70,37 +71,50 @@
 		}
 	}
 
+	function changeContent(event) {
+		if (event.target.className.includes('sigilContainer')) {
+			// pass house data and change the text content on the page
+			setHouseData(houseInfo[event.target.dataset.offset][0],
+						houseInfo[event.target.dataset.offset][1]);
+		}
+	}
+
 	// ---lightbox function
 	function popLightBox(event) {
 		// to make function work only when user's click is on sigils
 		if (event.target.className.includes('sigilContainer')) {
-			// add a class to open the lightbox(video)
-			lightBox.classList.add('show-lightbox');
 
-			//class = "sigilContainer xxxx"
-			//split by space -> ["sigilContainer", "xxx,xxx,xxx"]
-			//[1] ->the second item (house name)
-			let targetHouse = event.target.className.split(" ")[1];
-			setVideoSource(targetHouse)
-			playVideo();
+			window.setTimeout(function() {
+				// add a class to open the lightbox(video)
+				lightBox.classList.add('show-lightbox');
+			
 
-			// pass house data and change the text content on the page
-			setHouseData(houseInfo[event.target.dataset.offset][0],
-						houseInfo[event.target.dataset.offset][1]);
+				//class = "sigilContainer xxxx"
+				//split by space -> ["sigilContainer", "xxx,xxx,xxx"]
+				//[1] ->the second item (house name)
+				let targetHouse = event.target.className.split(" ")[1];
+			
+				setVideoSource(targetHouse);
+				playVideo();
+			}, 1000);
+		}
+	}
 
-			// the function to close video
-			lightBox.querySelector('.close').addEventListener('click', () => {
-
+	function closeVideo(event) {
+			
 				stopVideo();
 
 				lightBox.classList.remove('show-lightbox');
-			})
-		}
 	}
+
 
 	// start of event handler
 	// traditional eventlistener forEach takes up system memory:
 	// sigils.forEach(sigil => sigil.addEventListener('click', animateBanner));
 	sigils.addEventListener('click', animateBanner);
+	sigils.addEventListener('click', changeContent);
 	sigils.addEventListener('click', popLightBox);
+	close.addEventListener('click', closeVideo);
+
+
 })();
