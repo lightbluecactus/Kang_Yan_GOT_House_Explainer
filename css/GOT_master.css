@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+/* ----- custom font ----- */
+@font-face {
+    font-family: 'GOT_font';
+    src: url('Game_of_Thrones.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+/* ----- end custom font ----- */
+
+/* ----- default styles ----- */
+body { background-image:url(../images/grungeBG.jpg);
+	background-repeat:no-repeat; 
+	background-position:center center;
+	background-color:#000000; 
+	font-size:16px; 
+}
+
+h1 {
+	font-family: 'GOT_font';
+	color:white;
+	margin-top:30px;
+	font-size:1.25em;
+}
+
+main { /*give whitespace on top & bottom of page*/
+	position:relative;
+	width:100%;
+	text-align:center;
+	top:30px;
+}
+
+#imageContainer {
+	width:600px; /*if overflow is not hidden, the box width will not shown*/
+	height:360px;
+	background-color:grey;
+	margin:0 auto;
+	overflow:hidden; /*hide the rest of images*/
+}
+
+#houseImages { 
+	/* images sit side by side because of plain HTML code*/
+	position:relative;  /*a must-have property to make images slide*/
+	width:4000px; /*larger than total width of all imgs*/
+	transition: all .5s; /* animation of "slide" */
+}
+
+#houseImages img { float:left; } /* get rid of grey gaps */
+
+#bottomNav { margin-top:30px; }
+
+#navList li {
+	display:inline;
+	list-style-type:none;
+	padding:0px 10px;
+	cursor:pointer;
+}
+
+/* ----- end default styles ----- */
+
+/* ----- image sprite ----- */
+.sigilContainer {
+	width:51px;
+	height:54px;
+	display:inline-block;
+	overflow:hidden;
+	background-image:url(../images/GOT_sprites.png); /*six empty boxes filled in with matched area of img */
+	background-repeat:no-repeat;
+	transition:transform .3s;
+	-webkit-transition:-webkit-transform .3s;
+	-moz-transition:-moz-transform .3s;
+}
+
+.stark { background-position:0px -54px; } /* get measurement from psd (x,y) and try the data in inspector -> style*/ 
+.stark:hover { background-position:0px 0px; }
+
+.baratheon { background-position:-50.5px -54px; }
+.baratheon:hover { background-position:-51px 0px; }
+
+.lannister { background-position:-101px -54px; }
+.lannister:hover { background-position:-101px 0px; }
+
+.tully { background-position:-152px -54px; }
+.tully:hover { background-position:-152px 0px; }
+
+.greyjoy { background-position:-202px -54px; }
+.greyjoy:hover { background-position:-202px 0px; }
+
+.arryn { background-position:-253px -54px; }
+.arryn:hover { background-position:-253px 0px; }
+/* ----- end image sprite ----- */
+
+/* ----- classes for transitions ----- */
+
+.scaleUp {
+	-moz-transform:scale(1.7, 1.7);
+	-webkit-transform:scale(1.7, 1.7);
+	transform:scale(1.7, 1.7);
+}
+
+.scaleHalfUp {
+	-moz-transform:scale(1.2, 1.2);
+	-webkit-transform:scale(1.2, 1.2);
+	transform:scale(1.2, 1.2);
+}
+
+/* add styles here for lightbox and video */
+.lightbox
+{
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.show-lightbox { display: block; }
+
+/*open lightbox*/
+/*.lightbox:target
+{
+	display: block;
+	 css repaint: "adding a class to the target"
+	same as JS e.target.classList.add(`openLightbox`) 
+}*/
+
+/*close button*/
+.lightbox .close
+{
+	float: right;
+	padding-right: 10px;
+	padding-top: 10px;
+	font-size: 30px;
+	color: #fff;
+}
+
+.house-info
+{
+	color: #fff;
+	font-size: 1.3em;
+	line-height: 1.8;
+	letter-spacing: 1.2;
+	width: 50%;
+	margin: 20px auto;
+	padding-bottom: 80px;
+}
+
+video {
+	width: 65%;
+	margin-top: 10%;
+	border: thin solid #949393;
+}
